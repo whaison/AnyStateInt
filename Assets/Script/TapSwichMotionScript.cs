@@ -12,7 +12,29 @@ public class TapSwichMotionScript : MonoBehaviour,IPointerClickHandler {
 	void Start () {
 		buttonName = gameObject.name;
 		Debug.Log ("buttonName="+buttonName);
-		animator = GameObject.Find ("FMSkeleton").GetComponent<Animator> ();
+		Debug.Log ("シーン名　Application.loadedLevelName= "+Application.loadedLevelName);
+	
+		if (Application.loadedLevelName == "AnyStateInt") {
+			try {
+				animator = GameObject.Find ("FMSkeleton").GetComponent<Animator> ();
+			} catch (System.NullReferenceException e) {
+				Debug.Log ("e=" + e);
+			}
+		} else if (Application.loadedLevelName == "HasExitTime") {
+			try {
+				animator = GameObject.Find ("FMSkeleton_HasExitTime").GetComponent<Animator> ();
+			} catch (System.NullReferenceException e) {
+				Debug.Log ("e=" + e);
+			}
+		} else if (Application.loadedLevelName == "AnyStateIntFix") {
+			try {
+				animator = GameObject.Find ("FMSkeleton_Fix").GetComponent<Animator> ();
+			} catch (System.NullReferenceException e) {
+				Debug.Log ("e=" + e);
+			}
+		}
+		
+
 	}
 
 
@@ -22,6 +44,7 @@ public class TapSwichMotionScript : MonoBehaviour,IPointerClickHandler {
 		{
 
 		case "Attack":
+			//animator.SetInteger ("State", -1);
 			animator.SetInteger ("State", 100);
 			//animator.CrossFade("AttackA",0.2f);
 			//animator.SetInteger ("State", 0);
